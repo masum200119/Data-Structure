@@ -1,0 +1,75 @@
+#include<stdio.h>
+#include <stdlib.h>
+struct node
+{
+    int data;
+    struct node *next;
+};
+struct node *head = NULL;
+
+void Push(int x)
+{
+    struct node *newnode = (struct node*) malloc(sizeof(struct node));
+    if(head==NULL)
+    {
+        newnode->data = x;
+        newnode->next=NULL;
+        head=newnode;
+        return;
+    }
+    newnode->data = x;
+    newnode->next=NULL;
+    struct node *temp = head;
+    while(temp->next != NULL)
+    {
+        temp = temp->next;
+    }
+    temp->next = newnode;
+}
+void Pop()
+{
+    struct node *temp = head;
+    while (temp->next->next != NULL)
+    {
+        temp = temp->next;
+
+    }
+    temp->next = NULL;
+}
+void top()
+{
+    struct node *temp = head;
+    while (temp->next != NULL)
+    {
+        temp = temp->next;
+
+    }
+    printf("Top is %d ",temp->data);
+    printf("\n");
+}
+void Print_Stack()
+{
+    struct node *tmp = head;
+    while(tmp != NULL)
+    {
+        printf(" %d ",tmp->data);
+        tmp= tmp->next;
+    }
+}
+int main()
+{
+    printf("Current Stack : ");
+    Push(2);Push(5);Push(9);Push(4);Push(12);Push(1);
+    Print_Stack();
+    printf("\n");
+    top();
+    printf("\n");
+    Pop();
+    printf("After Popping : ");
+    Print_Stack();
+    printf("\n");
+    top();
+}
+
+
+
