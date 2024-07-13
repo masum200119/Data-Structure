@@ -1,0 +1,129 @@
+#include<stdio.h>
+#include <stdlib.h>
+struct node
+{
+    int data;
+    struct node *next;
+};
+struct node *head = NULL;
+
+void insert_at_Last(int x)
+{
+    struct node *newnode = (struct node*) malloc(sizeof(struct node));
+    if(head==NULL)
+    {
+        newnode->data = x;
+        newnode->next=NULL;
+        head=newnode;
+        return;
+    }
+    newnode->data = x;
+    newnode->next=NULL;
+    struct node *temp = head;
+    while(temp->next != NULL)
+    {
+        temp = temp->next;
+    }
+    temp->next = newnode;
+}
+void insert_at_First(int data)
+{
+
+    struct node *newnode = (struct node*) malloc(sizeof(struct node));
+    newnode->data = data;
+    newnode->next = head;
+    head = newnode;
+}
+void Random_insert(int index,int x)
+{
+    ///Not Working For First Element//
+    index--;
+    struct node *newnode = (struct node*) malloc(sizeof(struct node));
+    newnode->data = x;
+    struct node *temp = head;
+    while(index--)
+    {
+        temp=temp->next;
+    }
+    struct node *temp2=temp->next;
+    temp->next=newnode;
+    newnode->next=temp2;
+}
+void delete_at_first()
+{
+    head = head->next;
+}
+void deleteLast()
+{
+    struct node *temp = head;
+    while (temp->next->next != NULL)
+    {
+        temp = temp->next;
+
+    }
+    temp->next = NULL;
+}
+int search_Linkedlist(int key)
+{
+    struct node *temp = head;
+    while(temp != NULL)
+    {
+        if (temp->data == key)
+        {
+            return 1;
+        }
+        temp=temp->next;
+    }
+    return 0;
+}
+void printList()
+{
+    struct node *tmp = head;
+    while(tmp != NULL)
+    {
+        printf(" %d ",tmp->data);
+        tmp= tmp->next;
+    }
+}
+int main()
+{
+    printf("The Linked List is  : \n");
+    insert_at_Last(2);
+    insert_at_Last(3);
+    insert_at_Last(4);
+    insert_at_First(6);
+    insert_at_First(7);
+    insert_at_First(8);
+    printList();printf("\n");
+    printf("Enter the position You Want to insert : ");
+    int x;
+    scanf("%d",&x);
+    Random_insert(x-1,3);
+    printList();
+    printf("\n");
+
+    printf("Enter Element You Want to Find : ");
+    int y;
+    scanf("%d",&y);
+    if(search_Linkedlist(y)==1)
+    {
+        printf("Element Founded!");
+    }
+    else
+    {
+        printf("Please enter a valid element!");
+    }
+    printf("\n");
+    delete_at_first();
+    printf("After delete the first element : ");
+    printf("\n");
+    printList();
+    printf("\n");
+    printf("After delete the Last element : ");
+    printf("\n");
+    deleteLast();
+    printList();
+    printf("\n");
+
+}
+
